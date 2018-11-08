@@ -1,7 +1,7 @@
 {
-  "name": "boilermaker",
+  "name": "pass-the-aux",
   "version": "1.0.0",
-  "description": "Some boilerplate code to get you started - get shakin'!",
+  "description": "Is this a bop or a flop?",
   "engines": {
     "node": ">= 7.0.0"
   },
@@ -46,6 +46,7 @@
     "morgan": "^1.8.1",
     "passport": "^0.3.2",
     "passport-google-oauth": "^1.0.0",
+    "passport-spotify": "^1.0.1",
     "pg": "^6.1.2",
     "pg-hstore": "^2.3.2",
     "prop-types": "^15.6.2",

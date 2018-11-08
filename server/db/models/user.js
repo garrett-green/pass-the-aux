@@ -8,25 +8,41 @@ const User = db.define('user', {
     unique: true,
     allowNull: false
   },
-  password: {
+  name: {
     type: Sequelize.STRING,
-    // Making `.password` act like a func hides it when serializing to JSON.
-    // This is a hack to get around Sequelize's lack of a "private" option.
-    get() {
-      return () => this.getDataValue('password')
-    }
+    allowNull: false
   },
-  salt: {
+  spotifyId: {
     type: Sequelize.STRING,
-    // Making `.salt` act like a function hides it when serializing to JSON.
-    // This is a hack to get around Sequelize's lack of a "private" option.
-    get() {
-      return () => this.getDataValue('salt')
-    }
+    allowNull: false
   },
-  googleId: {
+  isAdmin: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false,
+    defaultValue: false
+  },
+  accessId: {
     type: Sequelize.STRING
-  }
+  },
+  refreshId: {
+    type: Sequelize.STRING
+  },
+  // password: {
+  //   type: Sequelize.STRING,
+  //   // Making `.password` act like a func hides it when serializing to JSON.
+  //   // This is a hack to get around Sequelize's lack of a "private" option.
+  //   get() {
+  //     return () => this.getDataValue('password')
+  //   }
+  // },
+  // salt: {
+  //   type: Sequelize.STRING,
+  //   // Making `.salt` act like a function hides it when serializing to JSON.
+  //   // This is a hack to get around Sequelize's lack of a "private" option.
+  //   get() {
+  //     return () => this.getDataValue('salt')
+  //   }
+  // },
 })
 
 module.exports = User
