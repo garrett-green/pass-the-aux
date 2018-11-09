@@ -23,7 +23,7 @@ if (!process.env.SPOTIFY_CLIENT_ID || !process.env.SPOTIFY_CLIENT_SECRET) {
     new SpotifyStrategy(
       spotifyConfig,
       (accessToken, refreshToken, expires_in, profile, done) => {
-        process.nextTick( async () => {
+        process.nextTick(async () => {
 
           console.log('PROFILE OBJ IN AUTH/SPOTIFY:', profile)
           const profileJSON = profile._json
@@ -38,31 +38,11 @@ if (!process.env.SPOTIFY_CLIENT_ID || !process.env.SPOTIFY_CLIENT_SECRET) {
           // profileUrl = https.open.spotify.com/user/${spotifyId} || profileJSON.href
           // uri = profileJSON.uri
 
-          console.log('EXPIRES IN:', expires_in)
-
-          // try {
-          //   const user = await User.findOrCreate({
-          //     where: {spotifyId},
-          //     defaults: {email, name, spotifyId, accessId, refreshId}
-          //   })
-          //   if(user)  {
-          //     return done(null, user)
-          //   }
-          // } catch (err) {
-          //   console.error(err)
-          //   return done;
-          // }
-          User.findOrCreate({
+          await User.findOrCreate({
             where: {spotifyId},
             defaults: {email, name, spotifyId, accessId, refreshId}
           })
-          // .spread(user => {
-          //   console.log('CREATED USER:', user)
-
-          //   done(null, user)
-          // })
-
-            .then(([user]) => done(null, user))
+            .then(async ([user]) => done(null, user))
             .catch(done)
 
           // return done(null, profile);
@@ -77,10 +57,8 @@ if (!process.env.SPOTIFY_CLIENT_ID || !process.env.SPOTIFY_CLIENT_SECRET) {
       scope: [
         'user-read-email',
         'playlist-modify-private',
-        'playlist-modify-public',
         'user-read-recently-played',
-        'user-read-private',
-        'user-top-read'
+        'user-read-private'
       ],
       showDialog: true
     }),
