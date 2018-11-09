@@ -50,6 +50,7 @@
     "pg": "^6.1.2",
     "pg-hstore": "^2.3.2",
     "prop-types": "^15.6.2",
+    "query-string": "^6.2.0",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
     "react-redux": "^5.0.2",
@@ -58,7 +59,8 @@
     "redux-logger": "^2.8.1",
     "redux-thunk": "^2.3.0",
     "sequelize": "^4.38.0",
-    "socket.io": "^2.1.1"
+    "socket.io": "^2.1.1",
+    "spotify-web-api-node": "^4.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0-beta.55",
