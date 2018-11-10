@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
-import PropTypes from 'prop-types'
+// import PropTypes from 'prop-types'
 import {Login, Signup, UserHome, TopArtists} from './components'
 import {me} from './store'
 
@@ -59,10 +59,10 @@ const mapDispatch = dispatch => {
 // when the url changes
 export default withRouter(connect(mapState, mapDispatch)(Routes))
 
-/**
- * PROP TYPES
- */
-Routes.propTypes = {
-  loadInitialData: PropTypes.func.isRequired,
-  isLoggedIn: PropTypes.bool.isRequired
-}
+// /**
+//  * PROP TYPES
+//  */
+// Routes.propTypes = {
+//   loadInitialData: PropTypes.func.isRequired,
+//   isLoggedIn: PropTypes.bool.isRequired
+// }
