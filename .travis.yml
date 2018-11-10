@@ -16,12 +16,12 @@ install:
 before_script:
   - psql -c 'create database "pass-the-aux-test";' -U postgres # remember to change this name if you change it elsewhere (e.g. package.json)
 
-# before_deploy:
-#   - npm run build-client # make the bundle
-#   - rm -rf node_modules # omit from the tarball, since we skip cleanup
-# deploy:
-#   skip_cleanup: true # prevents travis from deleting the build
-#   provider: heroku
-#   app: YOUR-HEROKU-APP-NAME-HERE # see README
-#   api_key:
-#     secure: YOUR-***ENCRYPTED***-API-KEY-HERE # see README
+before_deploy:
+  - npm run build-client # make the bundle
+  - rm -rf node_modules # omit from the tarball, since we skip cleanup
+deploy:
+  skip_cleanup: true # prevents travis from deleting the build
+  provider: heroku
+  app: pass-the-aux # see README
+  api_key:
+    secure: "pHTQhiEVaS6xIwOmxULsd3wagtp3mDa/VhRTOAWx+G53jzi8Ps5P+WhWBkmdl27LYXazdOFUGg0Jj4aIw84F6F6FKGlo9WKFvJPa/4ph7UGlOMt2DfXtTwytRVg5019Cqhdwk1NZdZqj7Mk3LNB49jyGELi2r1YpWS3EvwcnMDcB0+OK5XAzDuzfu0QOWthoZWFJ0mY9kFprM+3PIMRqVSwpvhRuQdcYdkkRyUu7OkcUU5avXFAbnLVYcAf9GcUGgnH4Syo0ELJJubhSmldm2gBsOfV4cMrtxZrGyoijNYlmddSKdXWs6nhkAdNMXL88EpKEibei/3yzY0bfQjfuTLkXm4Iy5+QZZR1XtI7+oAVpG+du0if1E8iDvsxvhks51S15UaYgWHpRVx8Nmtww74+vY+zLiX9Fi9EHqU+Pgd30qV2h1bQ0jHTdSOaS1C3p73UOt2BM/VC3EZ5UUH45Y3RDAxOpyARQ1e7OpRu4aNoBMBC07CrpnsK1vonpJ/42t5IgTW6a5Uv90GPRXEqNtZR/e09y28hkuOBb3infodiXQbzYWFWKNpJdNdm6XKPhYfIxwmjvmL4tme0y4Xyae+MmmZNpFmthADPdWSluYSixzYHkp4d/ovBmTIK2O3U6kY53tQ6oYz+ezPjL7kFcvLx5TkSUPfI/QgmuQwzVCBQ=" # see README
