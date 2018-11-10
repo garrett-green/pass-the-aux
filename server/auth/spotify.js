@@ -23,7 +23,7 @@ if (!process.env.SPOTIFY_CLIENT_ID || !process.env.SPOTIFY_CLIENT_SECRET) {
     new SpotifyStrategy(
       spotifyConfig,
       (accessToken, refreshToken, expires_in, profile, done) => {
-        process.nextTick( async () => {
+        process.nextTick( () => {
 
           console.log('PROFILE OBJ IN AUTH/SPOTIFY:', profile)
           const profileJSON = profile._json
