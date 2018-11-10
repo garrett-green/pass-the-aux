@@ -33,8 +33,8 @@ export class TopArtists extends Component {
     const artists = await this.props.getTopArtists(this.props.user)
     const recommendations = await this.props.getRecommendations(this.props.user)
     console.log('RECOMMENDATIONS:', recommendations)
-    const newPlaylist = await this.props.makePlaylist(this.props.user)
-    console.log('NEW PLAYLIST:', newPlaylist)
+    // const newPlaylist = await this.props.makePlaylist(this.props.user)
+    // console.log('NEW PLAYLIST:', newPlaylist)
     this.setState({artists})
   }
 
