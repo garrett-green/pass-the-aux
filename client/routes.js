@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 // import PropTypes from 'prop-types'
-import {Login, Signup, UserHome, TopArtists, RecommendationsBuilder, NamePlaylist} from './components'
+import {Login, Signup, UserHome, TopArtists, RecommendationsBuilder, NamePlaylist, SongCard, PlaylistBuilder, FinalPlaylist} from './components'
 import {me} from './store'
 import { fetchGenres } from './store/genres'
 
@@ -27,8 +27,14 @@ class Routes extends Component {
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
-            <Route exact path="/home" component={TopArtists} />
-            <Route path="/select-playlist-moods-genres" component={RecommendationsBuilder} />
+            <Route path="/home" {...this.props} component={TopArtists} />
+            <Route path="/name-playlist" {...this.props} component={NamePlaylist} />
+            <Route path="/pick-genre" {...this.props} component={RecommendationsBuilder} />
+            {/* <Route exact path="/testing-card" {...this.props} component={SongCard} /> */}
+            <Route exact path="/build-playlist" {...this.props} component={PlaylistBuilder} />
+            <Route exact path="/playlist/new" {...this.props} component={FinalPlaylist} />
+
+            {/* <Route path="/pick-artists" component={RecommendationsBuilder} /> */}
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}

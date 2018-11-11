@@ -9,4 +9,7 @@ export {Login, Signup} from './auth-form'
 export {default as TopArtists} from './top-artists'
 export {default as NamePlaylist} from './name-playlist'
 export {default as RecommendationsBuilder} from './recommendations-builder'
+export {default as SongCard} from './song-card'
+export {default as PlaylistBuilder} from './playlistBuilder'
+export {default as FinalPlaylist} from './finalPlaylist'
 

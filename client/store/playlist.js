@@ -5,11 +5,13 @@ import history from '../history'
  * ACTION TYPES
  */
 const CREATE_PLAYLIST = 'CREATE_PLAYLIST'
+const ADD_TO_PLAYLIST = 'ADD_TO_PLAYLIST'
 
 /**
  * ACTION CREATORS
  */
-// const getRecommendations = music => ({type: GET_RECOMMENDATIONS, music})
+const setPlaylist = playlist => ({type: CREATE_PLAYLIST, playlist})
+// const addSongToPlaylistCreator = song => ({type: ADD_TO_PLAYLIST, song})
 
 /**
  * THUNK CREATORS
@@ -43,6 +45,7 @@ export const createNewPlaylist = (user) => async dispatch =>  {
           console.log('RESPONSE.DATA', response.data)
           // console.log('*****WHOLE RESPONSE*****', response)
           const newPlaylist = response.data;
+          dispatch(setPlaylist(newPlaylist))
           return newPlaylist;
         })
     } catch (err) {
@@ -50,24 +53,54 @@ export const createNewPlaylist = (user) => async dispatch =>  {
     }
 }
 
-// export const createNewPlaylist = user => async dispatch =>  {
-//   const response = await axios.post(`api/spotify/make-playlist/`, {user});
-//   console.log('RESPONSE FROM PLAYLIST THUNK REQUEST', response);
-//   const newPlaylist = response.data;
-//   return newPlaylist;
-// }
+export const buildPlaylist = userData => async dispatch =>  {
+  const accessToken = userData.user.accessId;
+  const playlistId = userData.playlist.id
+  const songs = userData.songs
+
+  console.log(userData)
+
+    // const playListData = {
+    //   uris: `${user.playlistName} | By ${user.name}`,
+    //   public: false,
+    //   collaborative: true,
+    //   description: `Created on ${new Date()} with Pass The Aux.`
+    // }
+
+    try {
+      axios({
+        method: "post",
+        url: `https://api.spotify.com/v1/playlists/${playlistId}/tracks`,
+        data: {uris: songs},
+        dataType: 'json',
+        headers: {
+          "Authorization": "Bearer " + accessToken,
+          "Content-Type": "application/json"
+        }
+      })
+        .then(response => {
+          console.log('finalPlaylist RESPONSE', response)
+          // console.log('*****WHOLE RESPONSE*****', response)
+          const finalPlaylist = response.data;
+          // dispatch(setPlaylist(newPlaylist))
+          return finalPlaylist;
+        })
+    } catch (err) {
+      console.error(err)
+    }
+}
 
 const defaultState = {}
 
 /**
  * REDUCER
  */
-export default function(state = [], action) {
+export default function(state = {}, action) {
 
   switch (action.type) {
 
-    // case GET_RECOMMENDATIONS:
-    //   return action.music
+    case CREATE_PLAYLIST:
+      return action.playlist
 
     default:
       return state

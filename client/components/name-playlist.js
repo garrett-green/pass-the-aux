@@ -6,7 +6,8 @@ import {connect} from 'react-redux'
 const mapState = state => {
   console.log('STATE IN MAP STATE (NAME-PLAYLIST)', state)
   return {
-    user: state.user
+    user: state.user,
+    playlist: state.newPlaylist
   }
 }
 
@@ -32,11 +33,16 @@ export class NamePlaylist extends Component {
     console.log('user in handlesubmit', user)
     this.props.makePlaylist(user)
     .then(playlist => {
-      if(playlist.owner.id === user.spotifyId)  {
-        this.props.history.push('/select-playlist-moods-genres')
-      }
+      console.log('playlist made:', playlist)
     })
   }
+
+  componentDidUpdate(prevProps) {
+    if(this.props.playlist.id && this.props.playlist.id !== prevProps.playlist.id)  {
+      this.props.history.push('/pick-genre')
+    }
+  }
+
   render() {
 
     console.log('PROPS IN NAME PLAYLIST:', this.props)
