@@ -14,14 +14,18 @@ const CREATE_PLAYLIST = 'CREATE_PLAYLIST'
 /**
  * THUNK CREATORS
  */
-export const createNewPlaylist = user => async dispatch =>  {
+export const createNewPlaylist = (user) => async dispatch =>  {
+
+  console.log('user in playlist store', user)
+  console.log('title in playlist store', user.playlistName)
 
   const accessToken = user.accessId;
 
     const playListData = {
-      name: `Pass The Aux - v1 | By ${user.name}`,
+      name: `${user.playlistName} | By ${user.name}`,
       public: false,
-      collaborative: true
+      collaborative: true,
+      description: `Created on ${new Date()} with Pass The Aux.`
     }
 
     try {
@@ -38,8 +42,8 @@ export const createNewPlaylist = user => async dispatch =>  {
         .then(response => {
           console.log('RESPONSE.DATA', response.data)
           // console.log('*****WHOLE RESPONSE*****', response)
-          // const newPlaylist = response.data
-          // res.json(newPlaylist)
+          const newPlaylist = response.data;
+          return newPlaylist;
         })
     } catch (err) {
       console.error(err)

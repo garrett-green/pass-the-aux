@@ -5,6 +5,8 @@ router.use('/users', require('./users'))
 
 router.use('/spotify', require('./spotify'))
 
+router.use('/genres', require('./genres'))
+
 router.use((req, res, next) => {
   const error = new Error('Not Found')
   error.status = 404

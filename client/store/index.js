@@ -6,8 +6,9 @@ import user from './user'
 import topArtists from './top-artists'
 import Recommendations from './recommendations'
 import newPlaylist from './playlist'
+import Genres from './genres'
 
-const reducer = combineReducers({user, topArtists, Recommendations, newPlaylist})
+const reducer = combineReducers({user, topArtists, Recommendations, newPlaylist, Genres})
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
 )

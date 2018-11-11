@@ -2,8 +2,9 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 // import PropTypes from 'prop-types'
-import {Login, Signup, UserHome, TopArtists} from './components'
+import {Login, Signup, UserHome, TopArtists, RecommendationsBuilder, NamePlaylist} from './components'
 import {me} from './store'
+import { fetchGenres } from './store/genres'
 
 /**
  * COMPONENT
@@ -12,6 +13,7 @@ class Routes extends Component {
   componentDidMount() {
     console.log('comp did mount')
     this.props.loadInitialData()
+    fetchGenres();
   }
 
   render() {
@@ -26,7 +28,7 @@ class Routes extends Component {
           <Switch>
             {/* Routes placed here are only available after logging in */}
             <Route exact path="/home" component={TopArtists} />
-            <Route path="/home" component={UserHome} />
+            <Route path="/select-playlist-moods-genres" component={RecommendationsBuilder} />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}

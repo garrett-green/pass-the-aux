@@ -48,31 +48,32 @@ router.get('/top-artists/:accessId', async (req, res, next) =>  {
   }
 })
 
-router.get('/recommended-music/:accessId', async (req, res, next) =>  {
-  const accessToken = req.params.accessId;
-  try {
-    axios({
-      method: 'get',
-      url: 'https://api.spotify.com/v1/recommendations',
-      headers: {
-        'Authorization': 'Bearer ' + accessToken
-      },
-    params: {
-      'limit': '5',
-      'market': 'US',
-      'seed_genres': 'funk',
-      'min_popularity': '40'
-    }})
-      .then(response => {
-        console.log('RESPONSE.DATA.TRACKS', response.data.tracks)
-        // console.log('*****WHOLE RESPONSE*****', response)
-        const recommendedSongs = response.data.tracks
-        res.json(recommendedSongs)
-      })
-  } catch (err) {
-    console.error(err)
-  }
-})
+// router.get('/recommended-music/:accessId', async (req, res, next) =>  {
+//   const accessToken = req.params.accessId;
+//   console.log('req.body', req)
+//   try {
+//     axios({
+//       method: 'get',
+//       url: 'https://api.spotify.com/v1/recommendations',
+//       headers: {
+//         'Authorization': 'Bearer ' + accessToken
+//       },
+//     params: {
+//       'limit': '5',
+//       'market': 'US',
+//       'seed_genres': 'funk',
+//       'min_popularity': '40'
+//     }})
+//       .then(response => {
+//         console.log('RESPONSE.DATA.TRACKS', response.data.tracks)
+//         // console.log('*****WHOLE RESPONSE*****', response)
+//         const recommendedSongs = response.data.tracks
+//         res.json(recommendedSongs)
+//       })
+//   } catch (err) {
+//     console.error(err)
+//   }
+// })
 
 // router.post('/make-playlist/:accessId', async (req, res, next) =>  {
 //   const accessToken = req.params.accessId;

@@ -7,4 +7,6 @@ export {default as Navbar} from './navbar'
 export {default as UserHome} from './user-home'
 export {Login, Signup} from './auth-form'
 export {default as TopArtists} from './top-artists'
+export {default as NamePlaylist} from './name-playlist'
+export {default as RecommendationsBuilder} from './recommendations-builder'
 
