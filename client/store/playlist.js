@@ -41,7 +41,6 @@ export const createNewPlaylist = user => async dispatch => {
         'Content-Type': 'application/json'
       }
     }).then(response => {
-      console.log('RESPONSE.DATA', response.data)
       const newPlaylist = response.data
       dispatch(setPlaylist(newPlaylist))
       return newPlaylist

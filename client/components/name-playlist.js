@@ -5,7 +5,6 @@ import {connect} from 'react-redux'
 import {Button, Segment, Grid} from 'semantic-ui-react'
 
 const mapState = state => {
-  console.log('STATE IN MAP STATE (NAME-PLAYLIST)', state)
   return {
     user: state.user,
     playlist: state.newPlaylist

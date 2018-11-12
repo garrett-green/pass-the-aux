@@ -4,7 +4,6 @@ import {withRouter} from 'react-router-dom'
 import {Segment} from 'semantic-ui-react'
 
 const mapState = state => {
-  console.log('STATE IN MAP STATE (FINAL)', state)
   return {
     recommendations: state.Recommendations,
     playlist: state.newPlaylist,

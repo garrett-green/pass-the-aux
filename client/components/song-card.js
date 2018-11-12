@@ -6,7 +6,6 @@ import ReactPlayer from 'react-player'
 import {addSongToPlaylist} from '../store/songsForPlaylist'
 
 const mapState = state => {
-  console.log('STATE IN MAP STATE (NAME-PLAYLIST)', state)
   return {
     user: state.user,
     genres: state.Genres
@@ -23,7 +22,7 @@ export const SongCard = props => {
   const {song} = props
 
   return (
-    <Card key={song.id} style={{width: '100%'}}>
+    <Card key={song.id} style={{width: '90%'}}>
       <Image src={`${song.album.images[0].url}`} />
       <Card.Content>
         <Card.Header>{song.name}</Card.Header>
@@ -33,6 +32,7 @@ export const SongCard = props => {
             <p>Sorry, preview unavailable for this song.</p>
           ) : (
             <ReactPlayer
+              config={{file: {attributes: {controlsList: 'nodownload'}}, forceAudio: true}}
               url={`${song.preview_url}`}
               playing={true}
               controls={true}
@@ -42,7 +42,8 @@ export const SongCard = props => {
                 display: 'flex',
                 justifyContent: 'center',
                 width: '90%',
-                height: '5%'
+                height: '5%',
+                alignItems: 'center'
               }}
             />
           )}

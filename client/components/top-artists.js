@@ -13,7 +13,6 @@ import {
 } from 'semantic-ui-react'
 
 const mapState = state => {
-  console.log('STATE IN MAP STATE (TOP-ARTISTS)', state)
   return {
     user: state.user
   }
@@ -54,7 +53,7 @@ export class TopArtists extends Component {
               onClick={() => this.props.history.push('/name-playlist')}
               size="huge"
             >
-              MAKE A DOPE NEW PLAYLIST
+              LISTEN TO YOUR NEW PLAYLIST
             </Button>
           </div>
 
@@ -94,9 +93,6 @@ export class TopArtists extends Component {
                       height: '250px'
                     }}
                     src={`${artist.images[1].url}`}
-                    // as="a"
-                    // href={`${artist.external_urls.spotify}`}
-                    // target="_blank"
                   />
                   <Card.Content>
                     <Card.Header

@@ -17,7 +17,6 @@ import {buildPlaylist} from '../store/playlist'
 import FinalPlaylist from './finalPlaylist'
 
 const mapState = state => {
-  console.log('STATE IN MAP STATE (NAME-PLAYLIST)', state)
   return {
     recommendations: state.Recommendations,
     playlist: state.newPlaylist,
@@ -45,7 +44,6 @@ export class PlaylistBuilder extends Component {
   }
 
   addToPlaylist = song => {
-    console.log('SONG IN ADD TO PLAYLIST:', song)
     this.props.addToPlaylist(song).then(updatedSong => {
       if (updatedSong.addedToPlaylist) {
         let currentSongCounter = this.state.currentSong
@@ -81,14 +79,16 @@ export class PlaylistBuilder extends Component {
   }
 
   render() {
-    console.log('STATE IN BULDER:', this.state)
 
     const {visible, currentSong, submitted} = this.state
 
     if (this.props.recommendations && this.props.recommendations.length > 1) {
       return (
         <div>
-          <Grid centered columns={2}>
+          <Grid centered columns={2} style={{
+              padding: '5px',
+              margin: '5px'
+            }} >
             <Grid.Column>
               <Transition.Group animation="fly up" duration="400">
                 {visible && (
@@ -98,9 +98,15 @@ export class PlaylistBuilder extends Component {
             </Grid.Column>
           </Grid>
 
-          <Grid centered columns="equal">
-            <Segment>
-              <Grid.Column style={{float: 'left'}}>
+          <Grid centered columns="equal" style={{
+              padding: '5px',
+              margin: '5px'
+            }} >
+            <Segment style={{
+              padding: '5px',
+              margin: '5px'
+            }}>
+              <Grid.Column style={{float: 'right'}}>
                 <Icon
                   size="huge"
                   link={true}
@@ -110,7 +116,7 @@ export class PlaylistBuilder extends Component {
                   name="thumbs up"
                 />
               </Grid.Column>
-              <Grid.Column style={{float: 'right'}}>
+              <Grid.Column style={{float: 'left'}}>
                 <Icon
                   size="huge"
                   link={true}
@@ -125,12 +131,21 @@ export class PlaylistBuilder extends Component {
             style={{
               display: 'flex',
               justifyContent: 'center',
+              padding: '10px',
+              margin: '10px'
+            }}
+          >
+            <h2 style={{
+              float: 'left',
+              padding: '5px',
+              margin: '5px'
+            }}>Ready To Rock?</h2>
+            <Button
+            style={{
+              float: 'right',
               padding: '5px',
               margin: '5px'
             }}
-          >
-            <h2>Ready To Rock?</h2>
-            <Button
               color="green"
               onClick={this.buildFinalPlaylist}
               size="massive"

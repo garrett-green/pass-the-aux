@@ -16,15 +16,10 @@ const addSongToPlaylistCreator = song => ({type: ADD_TO_PLAYLIST, song})
  */
 
 export const addSongToPlaylist = song => async dispatch => {
-  console.log('SONG IN THUNK/STORE', song)
   await dispatch(addSongToPlaylistCreator(song.uri))
   song.addedToPlaylist = true
   return song
 }
-
-// export const finalizePlaylist = songs => async dispatch =>  {
-//   // const body = {"uris": ["spotify:track:4iV5W9uYEdYUVa79Axb7Rh","spotify:track:1301WleyT98MSxVHPZCA6M"]}
-// }
 
 /**
  * REDUCER

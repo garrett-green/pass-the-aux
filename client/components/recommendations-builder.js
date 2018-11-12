@@ -6,7 +6,6 @@ import {fetchGenres} from '../store/genres'
 import {Grid, Segment, Dimmer, Loader, Button} from 'semantic-ui-react'
 
 const mapState = state => {
-  console.log('STATE IN MAP STATE (NAME-PLAYLIST)', state)
   return {
     user: state.user,
     genres: state.Genres,
@@ -49,9 +48,7 @@ export class RecommendationsBuilder extends Component {
     evt.preventDefault()
     const user = {...this.props.user}
     const genres = this.state.genresSelected
-    console.log('genres:', genres)
     user.genrePicks = genres
-    console.log('user in handlesubmit', user)
     this.props
       .getRecommendations(user)
       .then(recommendationedTracks => {
@@ -67,7 +64,13 @@ export class RecommendationsBuilder extends Component {
     if (this.state.genreOptions !== undefined) {
       const genreChoices = this.state.genreOptions
       return (
-        <div>
+        <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+          flexWrap: 'wrap',
+          padding: '5px',
+          margin: '5px'
+        }}>
           <h2>Pick A Genre / Mood For Your New Playlist</h2>
           <Grid
             centered
@@ -108,7 +111,25 @@ export class RecommendationsBuilder extends Component {
                 )
               })
             ) : (
-              <div />
+              <div>
+                <p>
+                  At this time, you only get to choose one genre for your
+                  playlist.
+                </p>
+                <Button
+                  color="yellow"
+                  size="small"
+                  value=''
+                  onClick={evt =>
+                    this.setState({
+                      genresSelected: evt.target.value,
+                      genreCount: 0
+                    })
+                  }
+                >
+                  PICK A DIFFERENT GENRE
+                </Button>
+              </div>
             )}
           </Grid>
 
@@ -118,7 +139,7 @@ export class RecommendationsBuilder extends Component {
             primary
             onClick={evt => this.handleSubmit(evt)}
           >
-            GET DOPE SONGS
+            SHOW ME GREAT {this.state.genresSelected.toUpperCase()} SONGS
           </Button>
         </div>
       )

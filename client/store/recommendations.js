@@ -32,8 +32,6 @@ export const fetchRecommendations = user => async dispatch => {
         min_popularity: '45'
       }
     }).then(response => {
-      console.log('RESPONSE.DATA.TRACKS', response.data.tracks)
-      // console.log('*****WHOLE RESPONSE*****', response)
       const recommendedSongs = response.data.tracks
       dispatch(getRecommendations(recommendedSongs))
       return recommendedSongs
