@@ -2,9 +2,19 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 // import PropTypes from 'prop-types'
-import {Login, Signup, UserHome, TopArtists, RecommendationsBuilder, NamePlaylist, SongCard, PlaylistBuilder, FinalPlaylist} from './components'
+import {
+  Login,
+  Signup,
+  UserHome,
+  TopArtists,
+  RecommendationsBuilder,
+  NamePlaylist,
+  SongCard,
+  PlaylistBuilder,
+  FinalPlaylist
+} from './components'
 import {me} from './store'
-import { fetchGenres } from './store/genres'
+import {fetchGenres} from './store/genres'
 
 /**
  * COMPONENT
@@ -13,7 +23,7 @@ class Routes extends Component {
   componentDidMount() {
     console.log('comp did mount')
     this.props.loadInitialData()
-    fetchGenres();
+    fetchGenres()
   }
 
   render() {
@@ -22,19 +32,35 @@ class Routes extends Component {
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
-        <Route path="/login" component={Login} />
-        <Route path="/signup" component={Signup} />
+        <Route path="/login" {...this.props} component={Login} />
+        <Route path="/signup" {...this.props} component={Signup} />
         {isLoggedIn && (
           <Switch>
-            {/* Routes placed here are only available after logging in */}
             <Route path="/home" {...this.props} component={TopArtists} />
-            <Route path="/name-playlist" {...this.props} component={NamePlaylist} />
-            <Route path="/pick-genre" {...this.props} component={RecommendationsBuilder} />
-            {/* <Route exact path="/testing-card" {...this.props} component={SongCard} /> */}
-            <Route exact path="/build-playlist" {...this.props} component={PlaylistBuilder} />
-            <Route exact path="/playlist/new" {...this.props} component={FinalPlaylist} />
-
-            {/* <Route path="/pick-artists" component={RecommendationsBuilder} /> */}
+            <Route
+              path="/name-playlist"
+              {...this.props}
+              component={NamePlaylist}
+            />
+            <Route
+              path="/pick-genre"
+              {...this.props}
+              component={RecommendationsBuilder}
+            />
+            <Route
+              exact
+              path="/build-playlist"
+              {...this.props}
+              component={PlaylistBuilder}
+            />
+            <Route
+              exact
+              path="/your-new-playlist"
+              {...this.props}
+              component={FinalPlaylist}
+            />
+            <Route path="/home" {...this.props} component={TopArtists} />
+            <Route path="/" {...this.props} component={TopArtists} />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}

@@ -37,9 +37,16 @@ class Navbar extends Component {
                 <Menu.Item
                   name="logout"
                   active={activeItem === 'logout'}
-                  onClick={handleClick}
+                  onClick={this.handleClick}
                 >
                   Logout
+                </Menu.Item>
+                <Menu.Item
+                  name="make-playlist"
+                  active={activeItem === 'make-playlist'}
+                  onClick={this.handleItemClick}
+                >
+                  Make A Playlist
                 </Menu.Item>
               </Menu>
             </div>

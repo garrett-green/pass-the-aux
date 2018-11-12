@@ -2,9 +2,19 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import {SongCard} from './index'
-import {Transition, Icon, Button} from 'semantic-ui-react'
+import {
+  Transition,
+  Icon,
+  Button,
+  Grid,
+  Segment,
+  Divider,
+  Dimmer,
+  Loader
+} from 'semantic-ui-react'
 import {addSongToPlaylist} from '../store/songsForPlaylist'
 import {buildPlaylist} from '../store/playlist'
+import FinalPlaylist from './finalPlaylist'
 
 const mapState = state => {
   console.log('STATE IN MAP STATE (NAME-PLAYLIST)', state)
@@ -12,7 +22,8 @@ const mapState = state => {
     recommendations: state.Recommendations,
     playlist: state.newPlaylist,
     songsForPlaylist: state.SongsForPlaylist,
-    user: state.user
+    user: state.user,
+    submitted: false
   }
 }
 
@@ -28,7 +39,8 @@ export class PlaylistBuilder extends Component {
     super()
     this.state = {
       visible: true,
-      currentSong: 0
+      currentSong: 0,
+      submitted: false
     }
   }
 
@@ -47,106 +59,108 @@ export class PlaylistBuilder extends Component {
     this.setState({currentSong: currentSongCounter + 1})
   }
 
-  buildFinalPlaylist = async () =>  {
+  buildFinalPlaylist = async () => {
+    this.setState({submitted: true})
     const userData = {
       user: this.props.user,
-      playlist:  this.props.playlist,
+      playlist: this.props.playlist,
       songs: this.props.songsForPlaylist
     }
-    const dopePlaylist = await this.props.createFinalPlaylist(userData)
+    const dopePlaylist = await this.props
+      .createFinalPlaylist(userData)
+      .then(dopeNewPlaylist => {
+        console.log('dopeNewPlaylist:', dopeNewPlaylist)
+      })
     console.log('dopePlaylist', dopePlaylist)
+  }
 
+  componentDidUpdate(prevProps) {
+    if (this.state.submitted !== prevProps.submitted) {
+      this.props.history.push('/your-new-playlist')
+    }
   }
 
   render() {
-    console.log('PROPS IN BUILDER:', this.props)
+    console.log('STATE IN BULDER:', this.state)
 
-    const {visible, currentSong} = this.state
+    const {visible, currentSong, submitted} = this.state
 
-    if(this.props.recommendations && this.props.recommendations.length > 1) {
+    if (this.props.recommendations && this.props.recommendations.length > 1) {
       return (
         <div>
-        <div>
-          <Transition.Group animation="fly up" duration="400">
-            {visible && (
-              <SongCard song={this.props.recommendations[currentSong]} />
-            )}
-          </Transition.Group>
-          {/* <Button animated onClick={() =>
-              this.addToPlaylist(this.props.recommendations[currentSong])
-            }>
-            <Button.Content visible>BOP: ADD IT</Button.Content>
-            <Button.Content hidden>
-              <Icon name="thumbs up" />
-            </Button.Content>
-          </Button>
-          <Button animated onClick={() => this.nextSong()}>
-            <Button.Content visible>FLOP: PASS</Button.Content>
-            <Button.Content hidden>
-              <Icon name="thumbs down" />
-            </Button.Content>
-          </Button> */}
+          <Grid centered columns={2}>
+            <Grid.Column>
+              <Transition.Group animation="fly up" duration="400">
+                {visible && (
+                  <SongCard song={this.props.recommendations[currentSong]} />
+                )}
+              </Transition.Group>
+            </Grid.Column>
+          </Grid>
 
-          <Icon
-            link={true}
-            onClick={() =>
-              this.addToPlaylist(this.props.recommendations[currentSong])
-            }
-            name="thumbs up"
-          />
-          <Icon link={true} onClick={() => this.nextSong()} name="thumbs down" />
-        </div>
-        <div>
-          <h2>Finalize Your Playlist:</h2>
-          <Button primary onClick={this.buildFinalPlaylist} size='massive'>PASS THE AUX</Button>
-        </div>
+          <Grid centered columns="equal">
+            <Segment>
+              <Grid.Column style={{float: 'left'}}>
+                <Icon
+                  size="huge"
+                  link={true}
+                  onClick={() =>
+                    this.addToPlaylist(this.props.recommendations[currentSong])
+                  }
+                  name="thumbs up"
+                />
+              </Grid.Column>
+              <Grid.Column style={{float: 'right'}}>
+                <Icon
+                  size="huge"
+                  link={true}
+                  onClick={() => this.nextSong()}
+                  name="thumbs down"
+                />
+              </Grid.Column>
+            </Segment>
+          </Grid>
+          <Divider />
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              padding: '5px',
+              margin: '5px'
+            }}
+          >
+            <h2>Ready To Rock?</h2>
+            <Button
+              color="green"
+              onClick={this.buildFinalPlaylist}
+              size="massive"
+            >
+              PUBLISH PLAYLIST
+            </Button>
+          </div>
         </div>
       )
-    } else  {
+    } else if (submitted) {
       return (
-      <div>
-        Loading...
-      </div>
+        <div>
+          <Grid centered columns={2}>
+            <Grid.Column>
+              <FinalPlaylist props={this.props} />
+            </Grid.Column>
+          </Grid>
+        </div>
+      )
+    } else {
+      return (
+        <div>
+          <Segment>
+            <Dimmer active>
+              <Loader size="large">Loading...</Loader>
+            </Dimmer>
+          </Segment>
+        </div>
       )
     }
-
-    // return (
-    //   <div>
-    //   <div>
-    //     <Transition.Group animation="fly up" duration="400">
-    //       {visible && (
-    //         <SongCard song={this.props.recommendations[currentSong]} />
-    //       )}
-    //     </Transition.Group>
-    //     <Button animated onClick={() =>
-    //         this.addToPlaylist(this.props.recommendations[currentSong])
-    //       }>
-    //       <Button.Content circular visible>BOP: ADD IT</Button.Content>
-    //       <Button.Content hidden>
-    //         <Icon name="thumbs up" />
-    //       </Button.Content>
-    //     </Button>
-    //     <Button animated circular onClick={() => this.nextSong()}>
-    //       <Button.Content visible>FLOP: PASS</Button.Content>
-    //       <Button.Content hidden>
-    //         <Icon name="thumbs down" />
-    //       </Button.Content>
-    //     </Button>
-    //     {/* <Icon
-    //       link={true}
-    //       onClick={() =>
-    //         this.addToPlaylist(this.props.recommendations[currentSong])
-    //       }
-    //       name="thumbs up"
-    //     />
-    //     <Icon link={true} onClick={() => this.nextSong()} name="thumbs down" /> */}
-    //   </div>
-    //   <div>
-    //     <h2>Finalize Your Playlist:</h2>
-    //     <Button as="link" onClick={() => this.buildFinalPlaylist} size='massive'>PASS THE AUX</Button>
-    //   </div>
-    //   </div>
-    // )
   }
 }
 export default withRouter(connect(mapState, mapDispatch)(PlaylistBuilder))

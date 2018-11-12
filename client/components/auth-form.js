@@ -2,6 +2,8 @@ import React from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {auth} from '../store'
+import {Button} from 'semantic-ui-react'
+import {withRouter} from 'react-router-dom'
 
 /**
  * COMPONENT
@@ -10,26 +12,19 @@ const AuthForm = props => {
   const {name, displayName, handleSubmit, error} = props
 
   return (
-    <div>
-      {/* <form onSubmit={handleSubmit} name={name}>
-        <div>
-          <label htmlFor="email">
-            <small>Email</small>
-          </label>
-          <input name="email" type="text" />
-        </div>
-        <div>
-          <label htmlFor="password">
-            <small>Password</small>
-          </label>
-          <input name="password" type="password" />
-        </div>
-        <div>
-          <button type="submit">{displayName}</button>
-        </div>
-        {error && error.response && <div> {error.response.data} </div>}
-      </form> */}
-      <a href="/auth/spotify">{displayName} with Spotify</a>
+      <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center'
+            }}
+          >
+            <Button
+              color="green"
+              href="/auth/spotify"
+              size="huge"
+            >
+              {displayName} with Spotify
+            </Button>
     </div>
   )
 }
@@ -69,8 +64,8 @@ const mapDispatch = dispatch => {
   }
 }
 
-export const Login = connect(mapLogin, mapDispatch)(AuthForm)
-export const Signup = connect(mapSignup, mapDispatch)(AuthForm)
+export const Login = withRouter(connect(mapLogin, mapDispatch)(AuthForm))
+export const Signup = withRouter(connect(mapSignup, mapDispatch)(AuthForm))
 
 /**
  * PROP TYPES

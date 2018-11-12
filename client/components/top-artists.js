@@ -1,99 +1,27 @@
-// import React, {Component} from 'react'
-// import {connect} from 'react-redux'
-// import {withRouter} from 'react-router-dom'
-// import {fetchArtists} from '../store/top-artists'
-// import {fetchRecommendations} from '../store/recommendations'
-// import {createNewPlaylist} from '../store/playlist'
-// import { NamePlaylist } from './name-playlist';
-// import { Item } from 'semantic-ui-react'
-
-// const mapState = state => {
-//   console.log('STATE IN MAP STATE (TOP-ARTISTS)', state)
-//   return {
-//     user: state.user
-//     // TopArtists: state.TopArtists.TopArtists
-//   }
-// }
-
-// const mapDispatch = dispatch => {
-//   return {
-//     getTopArtists: user => dispatch(fetchArtists(user)),
-//     getRecommendations: user => dispatch(fetchRecommendations(user)),
-//     makePlaylist: user => dispatch(createNewPlaylist(user))
-//   }
-// }
-
-// export class TopArtists extends Component {
-//   constructor() {
-//     super()
-//     this.state = {
-//       artists: []
-//     }
-//   }
-
-//   async componentDidMount() {
-//     const user = this.props.user
-//     const artists = await this.props.getTopArtists(this.props.user)
-//     // const recommendations = await this.props.getRecommendations(this.props.user)
-//     // console.log('RECOMMENDATIONS:', recommendations)
-//     this.setState({artists})
-//   }
-
-//   render() {
-//     console.log('PROPS IN TopArtists Component:', this.props)
-
-//     console.log('this.state.artists =', this.state.artists)
-
-//     if (this.state.artists !== undefined) {
-//       return (
-//         <div>
-//           <div>
-//             <NamePlaylist {...this.props} />
-//           </div>
-//           <h3>Some of your favorite artists:</h3>
-//           <ul>
-//             {this.state.artists.map((artist, idx) => {
-//               return <li key={idx}>{artist.name}</li>
-//             })}
-//           </ul>
-//         {/* <h3>We have recommendations!</h3>
-//         <ul>
-//           {this.state.artists.map((recommendation, idx) => {
-//             return <li key={idx}>{recommendation.name}</li>
-//           })}
-//         </ul> */}
-//       </div>
-//       )
-//     } else {
-//       return <div>Loading...</div>
-//     }
-//   }
-// }
-
-// export default withRouter(connect(mapState, mapDispatch)(TopArtists))
-
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import {fetchArtists} from '../store/top-artists'
-import {fetchRecommendations} from '../store/recommendations'
-import {createNewPlaylist} from '../store/playlist'
-import {NamePlaylist} from './name-playlist'
-import {Item} from 'semantic-ui-react'
+import {
+  Grid,
+  Button,
+  Segment,
+  Dimmer,
+  Loader,
+  Card,
+  Image
+} from 'semantic-ui-react'
 
 const mapState = state => {
   console.log('STATE IN MAP STATE (TOP-ARTISTS)', state)
   return {
     user: state.user
-    // TopArtists: state.TopArtists.TopArtists
   }
 }
 
 const mapDispatch = dispatch => {
   return {
     getTopArtists: user => dispatch(fetchArtists(user))
-    // getRecommendations: user => dispatch(fetchRecommendations(user)),
-    // makePlaylist: user => dispatch(createNewPlaylist(user))
   }
 }
 
@@ -108,35 +36,93 @@ export class TopArtists extends Component {
   async componentDidMount() {
     const user = this.props.user
     const artists = await this.props.getTopArtists(this.props.user)
-    // const recommendations = await this.props.getRecommendations(this.props.user)
-    // console.log('RECOMMENDATIONS:', recommendations)
     this.setState({artists})
   }
 
   render() {
-    console.log('PROPS IN TopArtists Component:', this.props)
-
-    console.log('this.state.artists =', this.state.artists)
-
     if (this.state.artists !== undefined) {
       return (
-        <Item.Group>
-          {
-            this.state.artists.map(artist =>  {
+        <div>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center'
+            }}
+          >
+            <Button
+              color="green"
+              onClick={() => this.props.history.push('/name-playlist')}
+              size="huge"
+            >
+              MAKE A DOPE NEW PLAYLIST
+            </Button>
+          </div>
+
+          <h2
+            style={{
+              display: 'flex',
+              justifyContent: 'center'
+            }}
+          >
+            According to Spotify, these are some of your favorite artists...
+          </h2>
+
+          <Grid
+            centered
+            relaxed
+            columns={6}
+            style={{
+              display: 'flex',
+              margin: '10px',
+              padding: '10px',
+              justifyContent: 'center'
+            }}
+          >
+            {this.state.artists.map(artist => {
               return (
-                <Item key={artist.id}>
-            <Item.Image src={`${artist.images[0].url}`} />
-            <Item.Content verticalAlign='middle'>
-              <Item.Header className="topArtistNameHeader" >{artist.name}</Item.Header>
-            </Item.Content>
-          </Item>
+                <Card
+                  key={artist.id}
+                  style={{
+                    display: 'flex',
+                    margin: '10px',
+                    padding: '10px',
+                    justifyContent: 'center'
+                  }}
+                >
+                  <Image
+                    style={{
+                      height: '250px'
+                    }}
+                    src={`${artist.images[1].url}`}
+                    // as="a"
+                    // href={`${artist.external_urls.spotify}`}
+                    // target="_blank"
+                  />
+                  <Card.Content>
+                    <Card.Header
+                      as="a"
+                      href={`${artist.external_urls.spotify}`}
+                      target="_blank"
+                    >
+                      {artist.name}
+                    </Card.Header>
+                  </Card.Content>
+                </Card>
               )
-            })
-          }
-        </Item.Group>
+            })}
+          </Grid>
+        </div>
       )
     } else {
-      return <div>Loading...</div>
+      return (
+        <div>
+          <Segment>
+            <Dimmer active>
+              <Loader size="large">Loading...</Loader>
+            </Dimmer>
+          </Segment>
+        </div>
+      )
     }
   }
 }
