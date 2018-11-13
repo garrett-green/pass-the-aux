@@ -17,7 +17,6 @@ const getRecommendations = music => ({type: GET_RECOMMENDATIONS, music})
 export const fetchRecommendations = user => async dispatch => {
   const accessToken = user.accessId
   const genres = user.genrePicks
-  console.log('genres in store:', genres)
   try {
     axios({
       method: 'get',

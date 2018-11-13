@@ -17,14 +17,58 @@ class Navbar extends Component {
     const {activeItem} = this.state
 
     return (
-      <div>
-        <h1>PASS THE AUX</h1>
-        <nav>
+      <div
+        style={{
+          float: 'center',
+          textAlign: 'center',
+          padding: '5px',
+          margin: '5px',
+          fontSize: 'h1'
+        }}
+      >
+        <h1
+          style={{
+            justifyContent: 'center',
+            padding: '5px',
+            margin: '5px',
+            alignContent: 'center'
+          }}
+        >
+          PASS THE AUX
+        </h1>
+        <nav
+          style={{
+            // display: 'flex',
+            justifyContent: 'center',
+            float: 'center',
+            textAlign: 'center',
+            fontSize: 'h2'
+          }}
+        >
           {isLoggedIn ? (
-            <div>
+            <div
+              style={{
+                justifyContent: 'center'
+              }}
+            >
               {/* The navbar will show these links after you log in */}
-              <Menu>
+              <Menu
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  textAlign: 'center',
+                  float: 'center',
+                  fontSize: 'h2'
+                }}
+              >
                 <Menu.Item
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    textAlign: 'center',
+                    float: 'center',
+                    fontSize: 'h2'
+                  }}
                   as={Link}
                   name="home"
                   to="/home"
@@ -35,18 +79,52 @@ class Navbar extends Component {
                 </Menu.Item>
 
                 <Menu.Item
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    textAlign: 'center',
+                    float: 'center',
+                    fontSize: 'h2'
+                  }}
+                  as={Link}
+                  name="make-playlist"
+                  to="/name-playlist"
+                  active={activeItem === 'make-playlist'}
+                  onClick={this.handleItemClick}
+                >
+                  Make A New Playlist
+                </Menu.Item>
+
+                {/* <Menu.Item
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    textAlign: 'center',
+                    float: 'center',
+                    fontSize: 'h2'
+                  }}
+                  as={Link}
+                  name="select-playlist"
+                  to="/select-playlist"
+                  active={activeItem === 'select-playlist'}
+                  onClick={this.handleItemClick}
+                >
+                  Add To An Existing Playlist
+                </Menu.Item> */}
+
+                <Menu.Item
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    textAlign: 'center',
+                    float: 'center',
+                    fontSize: 'h2'
+                  }}
                   name="logout"
                   active={activeItem === 'logout'}
                   onClick={handleClick}
                 >
                   Logout
-                </Menu.Item>
-                <Menu.Item
-                  name="make-playlist"
-                  active={activeItem === 'make-playlist'}
-                  onClick={this.handleItemClick}
-                >
-                  Make A Playlist
                 </Menu.Item>
               </Menu>
             </div>
@@ -54,6 +132,13 @@ class Navbar extends Component {
             <div>
               <Menu>
                 <Menu.Item
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    textAlign: 'center',
+                    float: 'center',
+                    fontSize: 'h2'
+                  }}
                   as={Link}
                   name="login"
                   to="/login"
@@ -64,6 +149,13 @@ class Navbar extends Component {
                 </Menu.Item>
 
                 <Menu.Item
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    textAlign: 'center',
+                    float: 'center',
+                    fontSize: 'h2'
+                  }}
                   as={Link}
                   name="signup"
                   to="/signup"

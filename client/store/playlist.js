@@ -18,8 +18,6 @@ const songsAddedToPlaylist = () => ({type: ADD_TO_PLAYLIST, success: true})
  * THUNK CREATORS
  */
 export const createNewPlaylist = user => async dispatch => {
-  console.log('user in playlist store', user)
-  console.log('title in playlist store', user.playlistName)
 
   const accessToken = user.accessId
 
@@ -54,8 +52,6 @@ export const buildPlaylist = userData => async dispatch => {
   const accessToken = userData.user.accessId
   const playlistId = userData.playlist.id
   const songs = userData.songs
-
-  console.log('userData:', userData)
 
   try {
     axios({

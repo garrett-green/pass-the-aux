@@ -46,7 +46,6 @@ if (!process.env.SPOTIFY_CLIENT_ID || !process.env.SPOTIFY_CLIENT_SECRET) {
           // profileUrl = https.open.spotify.com/user/${spotifyId} || profileJSON.href
           // uri = profileJSON.uri
 
-          console.log('EXPIRES IN:', expires_in)
           try {
             const registeredUser = await User.findOne({where: {spotifyId}})
 

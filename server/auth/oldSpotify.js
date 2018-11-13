@@ -25,7 +25,7 @@ if (!process.env.SPOTIFY_CLIENT_ID || !process.env.SPOTIFY_CLIENT_SECRET) {
       (accessToken, refreshToken, expires_in, profile, done) => {
         process.nextTick(async () => {
 
-          console.log('PROFILE OBJ IN AUTH/SPOTIFY:', profile)
+          // console.log('PROFILE OBJ IN AUTH/SPOTIFY:', profile)
           const profileJSON = profile._json
           const spotifyId = profileJSON.id
           const email = profileJSON.email

@@ -17,7 +17,7 @@ const mapDispatch = dispatch => {
   }
 }
 
-export class NamePlaylist extends Component {
+export class UpdatePlaylist extends Component {
   constructor() {
     super()
     this.state = {
@@ -79,4 +79,4 @@ export class NamePlaylist extends Component {
   }
 }
 
-export default withRouter(connect(mapState, mapDispatch)(NamePlaylist))
+export default withRouter(connect(mapState, mapDispatch)(UpdatePlaylist))

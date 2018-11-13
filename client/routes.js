@@ -21,7 +21,6 @@ import {fetchGenres} from './store/genres'
  */
 class Routes extends Component {
   componentDidMount() {
-    console.log('comp did mount')
     this.props.loadInitialData()
     fetchGenres()
   }

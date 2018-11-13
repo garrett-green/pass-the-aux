@@ -16,7 +16,6 @@ const getTopArtists = topArtists => ({type: GET_TOP_ARTISTS, topArtists})
  */
 export const fetchArtists = user => async dispatch => {
   const response = await axios.get(`/api/spotify/top-artists/${user.accessId}`);
-  console.log('RESPONSE FROM THUNK REQUEST', response);
   const userTopArtists = response.data
   dispatch(getTopArtists(userTopArtists))
   return userTopArtists

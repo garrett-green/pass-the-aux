@@ -14,7 +14,8 @@ import {
 
 const mapState = state => {
   return {
-    user: state.user
+    user: state.user,
+    topArtists: state.topArtists
   }
 }
 
@@ -53,7 +54,7 @@ export class TopArtists extends Component {
               onClick={() => this.props.history.push('/name-playlist')}
               size="huge"
             >
-              LISTEN TO YOUR NEW PLAYLIST
+              LET'S MAKE A NEW PLAYLIST
             </Button>
           </div>
 
