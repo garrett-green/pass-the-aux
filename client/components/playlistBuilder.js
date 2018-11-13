@@ -103,10 +103,11 @@ export class PlaylistBuilder extends Component {
               margin: '5px'
             }} >
             <Segment style={{
-              padding: '5px',
-              margin: '5px'
+              padding: '10px',
+              margin: '10px'
             }}>
               <Grid.Column style={{float: 'right'}}>
+              <h3>ADD</h3>
                 <Icon
                   size="huge"
                   link={true}
@@ -117,6 +118,7 @@ export class PlaylistBuilder extends Component {
                 />
               </Grid.Column>
               <Grid.Column style={{float: 'left'}}>
+              <h3>PASS</h3>
                 <Icon
                   size="huge"
                   link={true}
