@@ -49,11 +49,12 @@ export class NamePlaylist extends Component {
       <div
         style={{
           padding: '10px',
-          margin: '10px'
+          margin: '10px',
+          width: '100%'
         }}
       >
-        <Grid centered columns={2}>
-          <Segment>
+        <Grid centered columns={2} style={{width: '100%'}} >
+          <Segment style={{height: '10%'}}>
             <form onSubmit={this.handleSubmit}>
               <Grid.Column>
                 <input

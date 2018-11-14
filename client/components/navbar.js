@@ -23,7 +23,8 @@ class Navbar extends Component {
           textAlign: 'center',
           padding: '5px',
           margin: '5px',
-          fontSize: 'h1'
+          fontSize: 'h1',
+          width: '100%'
         }}
       >
         <h1
@@ -38,7 +39,6 @@ class Navbar extends Component {
         </h1>
         <nav
           style={{
-            // display: 'flex',
             justifyContent: 'center',
             float: 'center',
             textAlign: 'center',
@@ -94,23 +94,6 @@ class Navbar extends Component {
                 >
                   Make A New Playlist
                 </Menu.Item>
-
-                {/* <Menu.Item
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    textAlign: 'center',
-                    float: 'center',
-                    fontSize: 'h2'
-                  }}
-                  as={Link}
-                  name="select-playlist"
-                  to="/select-playlist"
-                  active={activeItem === 'select-playlist'}
-                  onClick={this.handleItemClick}
-                >
-                  Add To An Existing Playlist
-                </Menu.Item> */}
 
                 <Menu.Item
                   style={{

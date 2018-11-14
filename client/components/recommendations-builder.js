@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import recommendations, {fetchRecommendations} from '../store/recommendations'
 import {fetchGenres} from '../store/genres'
 import {Grid, Segment, Dimmer, Loader, Button} from 'semantic-ui-react'
+import {isMobile} from 'react-device-detect'
 
 const mapState = state => {
   return {
@@ -61,19 +62,47 @@ export class RecommendationsBuilder extends Component {
       })
   }
   render() {
+    let style = {}
+
+    if (isMobile) {
+      style.display = 'flex'
+      style.flexDirection = 'row'
+      style.textAlign = 'center'
+    } else {
+    }
+
     if (this.state.genreOptions !== undefined) {
       const genreChoices = this.state.genreOptions
       return (
-        <div style={{
-          display: 'flex',
-          flexDirection: 'column',
-          flexWrap: 'wrap',
-          padding: '5px',
-          margin: '5px'
-        }}>
-          <h2>Pick A Genre / Mood For Your New Playlist</h2>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            flexWrap: 'wrap',
+            padding: '5px',
+            margin: '5px',
+            width: '100%'
+          }}
+        >
+          <h2
+            style={{
+              justifyContent: 'center',
+              textAlign: 'center'
+            }}
+          >
+            What kind of songs do you want to add to your playlist?
+          </h2>
+          <h3
+            style={{
+              justifyContent: 'center',
+              textAlign: 'center'
+            }}
+          >
+            Pick a genre / mood:
+          </h3>
           <Grid
             centered
+            stackable
             relaxed
             columns={6}
             style={{
@@ -119,7 +148,7 @@ export class RecommendationsBuilder extends Component {
                 <Button
                   color="yellow"
                   size="small"
-                  value=''
+                  value=""
                   onClick={evt =>
                     this.setState({
                       genresSelected: evt.target.value,
