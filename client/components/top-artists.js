@@ -61,7 +61,8 @@ export class TopArtists extends Component {
           <h2
             style={{
               display: 'flex',
-              justifyContent: 'center'
+              justifyContent: 'center',
+              textAlign: 'center'
             }}
           >
             According to Spotify, these are some of your favorite artists...
