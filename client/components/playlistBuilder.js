@@ -15,9 +15,8 @@ import {
 import {addSongToPlaylist} from '../store/songsForPlaylist'
 import {buildPlaylist} from '../store/playlist'
 import FinalPlaylist from './finalPlaylist'
-import Swipe from 'ui-react.swipe';
-import { isMobile } from "react-device-detect";
-
+import Swipe from 'ui-react.swipe'
+import {isMobile} from 'react-device-detect'
 
 const mapState = state => {
   return {
@@ -81,55 +80,101 @@ export class PlaylistBuilder extends Component {
     }
   }
 
-
   render() {
-
     const {visible, currentSong, submitted} = this.state
 
-    if(isMobile)  {
-      if (this.props.recommendations && this.props.recommendations.length > 1)  {
+    if (isMobile) {
+      if (this.props.recommendations && this.props.recommendations.length > 1) {
         return (
-          <div style={{
-            display: 'flex',
-            justifyContent: 'center',
-            padding: '2px',
-            margin: '2px',
-            alignContent: 'center',
-            float: 'center',
-            width: '100%'
-          }}>
-            <Swipe axis="x" onSwipeRight={() => this.addToPlaylist(this.props.recommendations[currentSong])} onSwipeLeft={() => this.nextSong()}>
-            <SongCard song={this.props.recommendations[currentSong]} />
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              padding: '2px',
+              margin: '2px',
+              alignContent: 'center',
+              float: 'center',
+              width: '100%',
+              flexGrow: '2',
+              flexDirection: 'column'
+            }}
+          >
+            <div>
+              <Swipe
+                axis="x"
+                onSwipeRight={() =>
+                  this.addToPlaylist(this.props.recommendations[currentSong])
+                }
+                onSwipeLeft={() => this.nextSong()}
+              >
+                <SongCard song={this.props.recommendations[currentSong]} />
               </Swipe>
+              <Divider />
+            </div>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                padding: '5px',
+                  margin: '5px',
+              }}
+            >
+              <h1
+                style={{
+                  float: 'left',
+                  padding: '5px',
+                  margin: '5px',
+                  textAlign: 'center'
+                }}
+              >
+                Ready To Rock?
+              </h1>
+              <Button
+                style={{
+                  float: 'right',
+                  padding: '5px',
+                  margin: '5px'
+                }}
+                color="green"
+                onClick={this.buildFinalPlaylist}
+                size="massive"
+              >
+                PUBLISH PLAYLIST
+              </Button>
+            </div>
           </div>
         )
-      } else  {
+      } else {
         return (
-        <div style={{
-          display: 'flex',
-          justifyContent: 'center',
-          width: '100%'
-        }}>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              width: '100%'
+            }}
+          >
             <Segment>
               <Dimmer active>
                 <Loader size="large">Loading...</Loader>
               </Dimmer>
             </Segment>
           </div>
-          )
+        )
       }
-
-    } else  {
-
+    } else {
       if (this.props.recommendations && this.props.recommendations.length > 1) {
         return (
           <div style={{width: '100%'}}>
-            <Grid centered columns={4} style={{
+            <Grid
+              centered
+              columns={4}
+              style={{
                 display: 'flex',
                 padding: '5px',
                 margin: '5px',
                 height: '100%'
-              }} >
+              }}
+            >
               <Grid.Column style={{flexGrow: 'auto'}}>
                 <Transition.Group animation="fly up" duration="400">
                   {visible && (
@@ -139,31 +184,50 @@ export class PlaylistBuilder extends Component {
               </Grid.Column>
             </Grid>
 
-            <Grid centered divided columns="equal" style={{
+            <Grid
+              centered
+              divided
+              columns="equal"
+              style={{
                 padding: '5px',
                 margin: '5px'
-              }}>
-              <Segment style={{
-                padding: '10px',
-                margin: '10px',
-                width: '25%',
-                flexGrow: 'auto'
-              }}>
-                <Grid.Column style={{float: 'right', padding: '1% 4% 1% 0%',
-                margin: '1% 4% 1% 0%'}}>
-                <h2>ADD</h2>
+              }}
+            >
+              <Segment
+                style={{
+                  padding: '10px',
+                  margin: '10px',
+                  width: '25%',
+                  flexGrow: 'auto'
+                }}
+              >
+                <Grid.Column
+                  style={{
+                    float: 'right',
+                    padding: '1% 4% 1% 0%',
+                    margin: '1% 4% 1% 0%'
+                  }}
+                >
+                  <h2>ADD</h2>
                   <Icon
                     size="huge"
                     link={true}
                     onClick={() =>
-                      this.addToPlaylist(this.props.recommendations[currentSong])
+                      this.addToPlaylist(
+                        this.props.recommendations[currentSong]
+                      )
                     }
                     name="thumbs up"
                   />
                 </Grid.Column>
-                <Grid.Column style={{float: 'left', padding: '1% 0% 1% 4%',
-                margin: '1% 0% 1% 4%'}}>
-                <h2>PASS</h2>
+                <Grid.Column
+                  style={{
+                    float: 'left',
+                    padding: '1% 0% 1% 4%',
+                    margin: '1% 0% 1% 4%'
+                  }}
+                >
+                  <h2>PASS</h2>
                   <Icon
                     size="huge"
                     link={true}
@@ -184,17 +248,21 @@ export class PlaylistBuilder extends Component {
                 marginBottom: '2%'
               }}
             >
-              <h1 style={{
-                float: 'left',
-                padding: '5px',
-                margin: '5px'
-              }}>Ready To Rock?</h1>
+              <h1
+                style={{
+                  float: 'left',
+                  padding: '5px',
+                  margin: '5px'
+                }}
+              >
+                Ready To Rock?
+              </h1>
               <Button
-              style={{
-                float: 'right',
-                padding: '5px',
-                margin: '5px'
-              }}
+                style={{
+                  float: 'right',
+                  padding: '5px',
+                  margin: '5px'
+                }}
                 color="green"
                 onClick={this.buildFinalPlaylist}
                 size="massive"
@@ -226,7 +294,6 @@ export class PlaylistBuilder extends Component {
         )
       }
     }
-    }
-
+  }
 }
 export default withRouter(connect(mapState, mapDispatch)(PlaylistBuilder))
