@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
-import {Menu} from 'semantic-ui-react'
+import {Menu, Container} from 'semantic-ui-react'
 
 class Navbar extends Component {
   constructor() {
@@ -16,144 +16,44 @@ class Navbar extends Component {
     const {handleClick, isLoggedIn} = this.props
     const {activeItem} = this.state
 
-    return (
-      <div
-        style={{
-          float: 'center',
-          textAlign: 'center',
-          padding: '5px',
-          margin: '5px',
-          fontSize: 'h1',
-          width: '100%'
-        }}
-      >
-        <h1
-          style={{
-            justifyContent: 'center',
-            padding: '5px',
-            margin: '5px',
-            alignContent: 'center'
-          }}
-        >
-          PASS THE AUX
-        </h1>
-        <nav
-          style={{
-            justifyContent: 'center',
-            float: 'center',
-            textAlign: 'center',
-            fontSize: 'h2'
-          }}
-        >
-          {isLoggedIn ? (
-            <div
-              style={{
-                justifyContent: 'center'
-              }}
+    if (isLoggedIn) {
+      return (
+        <>
+          <h1 style={{textAlign: 'center'}}>PASS THE AUX</h1>
+          <Menu fluid widths={3} size="huge">
+            <Menu.Item
+              as={Link}
+              name="home"
+              to="/home"
+              active={activeItem === 'home'}
+              onClick={this.handleItemClick}
             >
-              {/* The navbar will show these links after you log in */}
-              <Menu
-                style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  textAlign: 'center',
-                  float: 'center',
-                  fontSize: 'h2'
-                }}
-              >
-                <Menu.Item
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    textAlign: 'center',
-                    float: 'center',
-                    fontSize: 'h2'
-                  }}
-                  as={Link}
-                  name="home"
-                  to="/home"
-                  active={activeItem === 'home'}
-                  onClick={this.handleItemClick}
-                >
-                  Home
-                </Menu.Item>
+              Home
+            </Menu.Item>
 
-                <Menu.Item
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    textAlign: 'center',
-                    float: 'center',
-                    fontSize: 'h2'
-                  }}
-                  as={Link}
-                  name="make-playlist"
-                  to="/name-playlist"
-                  active={activeItem === 'make-playlist'}
-                  onClick={this.handleItemClick}
-                >
-                  Make A New Playlist
-                </Menu.Item>
+            <Menu.Item
+              as={Link}
+              name="make-playlist"
+              to="/name-playlist"
+              active={activeItem === 'make-playlist'}
+              onClick={this.handleItemClick}
+            >
+              Make A New Playlist
+            </Menu.Item>
 
-                <Menu.Item
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    textAlign: 'center',
-                    float: 'center',
-                    fontSize: 'h2'
-                  }}
-                  name="logout"
-                  active={activeItem === 'logout'}
-                  onClick={handleClick}
-                >
-                  Logout
-                </Menu.Item>
-              </Menu>
-            </div>
-          ) : (
-            <div>
-              <Menu>
-                <Menu.Item
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    textAlign: 'center',
-                    float: 'center',
-                    fontSize: 'h2'
-                  }}
-                  as={Link}
-                  name="login"
-                  to="/login"
-                  active={activeItem === 'login'}
-                  onClick={this.handleItemClick}
-                >
-                  Login
-                </Menu.Item>
-
-                <Menu.Item
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    textAlign: 'center',
-                    float: 'center',
-                    fontSize: 'h2'
-                  }}
-                  as={Link}
-                  name="signup"
-                  to="/signup"
-                  active={activeItem === 'signup'}
-                  onClick={this.handleItemClick}
-                >
-                  Sign Up
-                </Menu.Item>
-              </Menu>
-            </div>
-          )}
-        </nav>
-        <hr />
-      </div>
-    )
+            <Menu.Item
+              name="logout"
+              active={activeItem === 'logout'}
+              onClick={handleClick}
+            >
+              Logout
+            </Menu.Item>
+          </Menu>
+        </>
+      )
+    } else {
+      return <div />
+    }
   }
 }
 
