@@ -16,8 +16,6 @@ class Navbar extends Component {
     const {handleClick, isLoggedIn} = this.props
     const {activeItem} = this.state
 
-    console.log('NAV BAR COMPONENT PROPS', this.props)
-
     if (isLoggedIn) {
       return (
         <>
@@ -63,7 +61,6 @@ class Navbar extends Component {
  * CONTAINER
  */
 const mapState = state => {
-  console.log('state in navbarJS mapState', state)
   return {
     isLoggedIn: !!state.user.id
   }
