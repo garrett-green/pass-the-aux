@@ -4,7 +4,7 @@ Is it a bop or a flop? Swipe right for a better playlist.
 
 ## DEMO
 
-See the live web app here: [Pass-The-Aux.herokuapp.com](https://pass-the-aux.herokuapp.com).
+See the live web app here: [Pass-The-Aux.HerokuApp.com](https://pass-the-aux.herokuapp.com).
 
 ## BUILD
 
