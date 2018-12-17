@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {auth} from '../store'
-import {Button} from 'semantic-ui-react'
+import {Button, Grid, Image} from 'semantic-ui-react'
 import {withRouter} from 'react-router-dom'
 
 /**
@@ -12,21 +12,31 @@ const AuthForm = props => {
   const {name, displayName, handleSubmit, error} = props
 
   return (
-      <div
-            style={{
-              display: 'flex',
-              justifyContent: 'center'
-            }}
-          >
-            <Button
-              color="green"
-              href="/auth/spotify"
-              size="huge"
-            >
+    <div className="loginButton">
+      <Grid centered columns={1}>
+        <Grid.Column>
+          <Grid.Row centered style={{textAlign: 'center', margin: '5px', padding: '5px'}} >
+            {/* <h1>PASS THE AUX</h1> */}
+            <Image src='/pass-the-aux-login.png' href="/auth/spotify" fluid style={{padding: '5px', margin: '5px'}} / >
+          </Grid.Row>
+          <Grid.Row centered style={{textAlign: 'center'}} >
+            <Button color="green" href="/auth/spotify" size="massive" style={{textAlign: 'center'}} >
               {displayName} with Spotify
             </Button>
+          </Grid.Row>
+        </Grid.Column>
+      </Grid>
     </div>
   )
+
+  // return (
+  //   <div className="loginButton">
+  //     <h1 style={{textAlign: 'center'}}>PASS THE AUX</h1>
+  // <Button color="green" href="/auth/spotify" size="huge">
+  //   {displayName} with Spotify
+  // </Button>
+  //   </div>
+  // )
 }
 
 /**
