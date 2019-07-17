@@ -44,6 +44,7 @@
     "express-session": "^1.15.1",
     "history": "^4.6.3",
     "morgan": "^1.8.1",
+    "npm-merge-driver": "^2.3.5",
     "passport": "^0.3.2",
     "passport-spotify": "^1.0.1",
     "pg": "^7.11.0",
