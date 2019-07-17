@@ -43,5 +43,3 @@ router.get('/me', (req, res) => {
 })
 
 router.use('/spotify', require('./spotify'))
-
-router.use('/google', require('./google'))

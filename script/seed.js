@@ -7,42 +7,38 @@ async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
 
-  // const users = await Promise.all([
-  //   User.create({email: 'garrett_green@icloud.com', name: 'Garrett Green', spotifyId: '125381746', isAdmin: true})
-  // ])
-
   const genres = await Promise.all([
-  Genre.create({ name: 'alternative' }),
-  Genre.create({ name: 'bluegrass' }),
-  Genre.create({ name: 'blues' }),
-  Genre.create({ name: 'classical' }),
-  Genre.create({ name: 'country' }),
-  Genre.create({ name: 'disco' }),
-  Genre.create({ name: 'disney' }),
-  Genre.create({ name: 'edm' }),
-  Genre.create({ name: 'folk' }),
-  Genre.create({ name: 'funk' }),
-  Genre.create({ name: 'heavy-metal' }),
-  Genre.create({ name: 'hip-hop' }),
-  Genre.create({ name: 'holidays' }),
-  Genre.create({ name: 'jazz' }),
-  Genre.create({ name: 'pop' }),
-  Genre.create({ name: 'punk' }),
-  Genre.create({ name: 'reggae' }),
-  Genre.create({ name: 'rock' }),
-  Genre.create({ name: 'show-tunes' }),
-  Genre.create({ name: 'soul' }),
-  Genre.create({ name: 'soundtracks' }),
-  Genre.create({ name: 'study' }),
-  Genre.create({ name: 'summer' }),
-  Genre.create({ name: 'work-out' }),
-  Genre.create({ name: 'sad' }),
-  Genre.create({ name: 'sleep' }),
-  Genre.create({ name: 'chill' }),
-  Genre.create({ name: 'happy' }),
-  Genre.create({ name: 'party' }),
-  Genre.create({ name: 'rainy-day' })
-])
+    Genre.create({name: 'alternative'}),
+    Genre.create({name: 'bluegrass'}),
+    Genre.create({name: 'blues'}),
+    Genre.create({name: 'classical'}),
+    Genre.create({name: 'country'}),
+    Genre.create({name: 'disco'}),
+    Genre.create({name: 'disney'}),
+    Genre.create({name: 'edm'}),
+    Genre.create({name: 'folk'}),
+    Genre.create({name: 'funk'}),
+    Genre.create({name: 'heavy-metal'}),
+    Genre.create({name: 'hip-hop'}),
+    Genre.create({name: 'holidays'}),
+    Genre.create({name: 'jazz'}),
+    Genre.create({name: 'pop'}),
+    Genre.create({name: 'punk'}),
+    Genre.create({name: 'reggae'}),
+    Genre.create({name: 'rock'}),
+    Genre.create({name: 'show-tunes'}),
+    Genre.create({name: 'soul'}),
+    Genre.create({name: 'soundtracks'}),
+    Genre.create({name: 'study'}),
+    Genre.create({name: 'summer'}),
+    Genre.create({name: 'work-out'}),
+    Genre.create({name: 'sad'}),
+    Genre.create({name: 'sleep'}),
+    Genre.create({name: 'chill'}),
+    Genre.create({name: 'happy'}),
+    Genre.create({name: 'party'}),
+    Genre.create({name: 'rainy-day'})
+  ])
 
   console.log(`seeded ${genres.length} genres!`)
   console.log(`seeded successfully`)
