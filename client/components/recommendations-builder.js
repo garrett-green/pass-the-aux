@@ -1,78 +1,68 @@
-import React, {Component} from 'react'
-import {withRouter} from 'react-router-dom'
-import {connect} from 'react-redux'
-import recommendations, {fetchRecommendations} from '../store/recommendations'
-import {fetchGenres} from '../store/genres'
-import {Grid, Segment, Dimmer, Loader, Button} from 'semantic-ui-react'
-import {isMobile} from 'react-device-detect'
+import React, {Component} from 'react';
+import {withRouter} from 'react-router-dom';
+import {connect} from 'react-redux';
+import recommendations, {fetchRecommendations} from '../store/recommendations';
+import {fetchGenres} from '../store/genres';
+import {Grid, Segment, Dimmer, Loader, Button} from 'semantic-ui-react';
+import {isMobile} from 'react-device-detect';
 
-const mapState = state => {
+const mapState = ({user, genres, recommendations, playlist}) => {
   return {
-    user: state.user,
-    genres: state.Genres,
-    recommendations: state.Recommendations,
-    playlist: state.newPlaylist
-  }
-}
+    user,
+    genres,
+    recommendations,
+    playlist
+  };
+};
 
 const mapDispatch = dispatch => {
   return {
     getGenres: () => dispatch(fetchGenres()),
     getRecommendations: user => dispatch(fetchRecommendations(user))
-  }
-}
+  };
+};
 
 export class RecommendationsBuilder extends Component {
   constructor() {
-    super()
+    super();
     this.state = {
       genreOptions: [],
       genresSelected: '',
       genreCount: 0
-    }
-    this.handleSubmit = this.handleSubmit.bind(this)
+    };
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   async componentDidMount() {
-    await this.props.getGenres()
-    const genreOptions = this.props.genres
-    this.setState({genreOptions})
+    await this.props.getGenres();
+    const genreOptions = this.props.genres;
+    this.setState({genreOptions});
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.recommendations.length > prevProps.recommendations.length) {
-      this.props.history.push('/testing-builder')
+      this.props.history.push('/testing-builder');
     }
   }
 
   handleSubmit(evt) {
-    evt.preventDefault()
-    const user = {...this.props.user}
-    const genres = this.state.genresSelected
-    user.genrePicks = genres
-    this.props
-      .getRecommendations(user)
-      .then(recommendationedTracks => {
-        console.log('recommendationedTracks', recommendationedTracks)
-        return recommendationedTracks
-      })
-      .then(dopeSongs => {
-        console.log('dopeSongs', dopeSongs)
-        this.props.history.push('/build-playlist')
-      })
+    evt.preventDefault();
+    const user = {...this.props.user, genrePicks: this.state.genresSelected};
+    this.props.getRecommendations(user).then(() => {
+      this.props.history.push('/build-playlist');
+    });
   }
   render() {
-    let style = {}
+    let style = {};
 
     if (isMobile) {
-      style.display = 'flex'
-      style.flexDirection = 'row'
-      style.textAlign = 'center'
-    } else {
+      style.display = 'flex';
+      style.flexDirection = 'row';
+      style.textAlign = 'center';
     }
 
-    if (this.state.genreOptions !== undefined) {
-      const genreChoices = this.state.genreOptions
+    if (!!this.state.genreOptions) {
+      const genreChoices = this.state.genreOptions;
       return (
         <div
           style={{
@@ -137,7 +127,7 @@ export class RecommendationsBuilder extends Component {
                       {genre.name.toUpperCase()}
                     </Button>
                   </Grid.Column>
-                )
+                );
               })
             ) : (
               <div>
@@ -171,7 +161,7 @@ export class RecommendationsBuilder extends Component {
             SHOW ME GREAT {this.state.genresSelected.toUpperCase()} SONGS
           </Button>
         </div>
-      )
+      );
     } else {
       return (
         <div>
@@ -181,11 +171,11 @@ export class RecommendationsBuilder extends Component {
             </Dimmer>
           </Segment>
         </div>
-      )
+      );
     }
   }
 }
 
 export default withRouter(
   connect(mapState, mapDispatch)(RecommendationsBuilder)
-)
+);

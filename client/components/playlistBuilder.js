@@ -1,7 +1,7 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {withRouter} from 'react-router-dom'
-import {SongCard} from './index'
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {withRouter} from 'react-router-dom';
+import {SongCard} from './index';
 import {
   Transition,
   Icon,
@@ -11,77 +11,77 @@ import {
   Divider,
   Dimmer,
   Loader
-} from 'semantic-ui-react'
-import {addSongToPlaylist} from '../store/songsForPlaylist'
-import {buildPlaylist} from '../store/playlist'
-import FinalPlaylist from './finalPlaylist'
-import Swipe from 'ui-react.swipe'
-import {isMobile} from 'react-device-detect'
+} from 'semantic-ui-react';
+import {addSongToPlaylist} from '../store/songsForPlaylist';
+import {buildPlaylist} from '../store/playlist';
+import FinalPlaylist from './finalPlaylist';
+import Swipe from 'ui-react.swipe';
+import {isMobile} from 'react-device-detect';
 
-const mapState = state => {
+const mapState = ({recommendations, playlist, songsForPlaylist, user}) => {
   return {
-    recommendations: state.Recommendations,
-    playlist: state.newPlaylist,
-    songsForPlaylist: state.SongsForPlaylist,
-    user: state.user,
+    recommendations,
+    playlist,
+    songsForPlaylist,
+    user,
     submitted: false
-  }
-}
+  };
+};
 
 const mapDispatch = dispatch => {
   return {
     addToPlaylist: song => dispatch(addSongToPlaylist(song)),
     createFinalPlaylist: userData => dispatch(buildPlaylist(userData))
-  }
-}
+  };
+};
 
 export class PlaylistBuilder extends Component {
   constructor() {
-    super()
+    super();
     this.state = {
       visible: true,
       currentSong: 0,
       submitted: false
-    }
+    };
   }
 
   addToPlaylist = song => {
     this.props.addToPlaylist(song).then(updatedSong => {
       if (updatedSong.addedToPlaylist) {
-        let currentSongCounter = this.state.currentSong
-        this.setState({currentSong: currentSongCounter + 1})
+        let currentSongCounter = this.state.currentSong;
+        this.setState({currentSong: currentSongCounter + 1});
       }
-    })
-  }
+    });
+  };
 
   nextSong = () => {
-    let currentSongCounter = this.state.currentSong
-    this.setState({currentSong: currentSongCounter + 1})
-  }
+    let currentSongCounter = this.state.currentSong;
+    this.setState({currentSong: currentSongCounter + 1});
+  };
 
   buildFinalPlaylist = async () => {
-    this.setState({submitted: true})
+    this.setState({submitted: true});
     const userData = {
       user: this.props.user,
       playlist: this.props.playlist,
       songs: this.props.songsForPlaylist
-    }
+    };
     const dopePlaylist = await this.props
       .createFinalPlaylist(userData)
       .then(dopeNewPlaylist => {
-        console.log('dopeNewPlaylist:', dopeNewPlaylist)
-      })
-    console.log('dopePlaylist', dopePlaylist)
-  }
+        console.log('dopeNewPlaylist:', dopeNewPlaylist);
+      });
+    console.log('dopePlaylist', dopePlaylist);
+  };
 
   componentDidUpdate(prevProps) {
     if (this.state.submitted !== prevProps.submitted) {
-      this.props.history.push('/your-new-playlist')
+      this.props.history.push('/your-new-playlist');
     }
   }
 
   render() {
-    const {visible, currentSong, submitted} = this.state
+    const {visible, currentSong, submitted} = this.state;
 
     if (isMobile) {
       if (this.props.recommendations && this.props.recommendations.length > 1) {
@@ -116,7 +116,7 @@ export class PlaylistBuilder extends Component {
                 display: 'flex',
                 justifyContent: 'center',
                 padding: '5px',
-                  margin: '5px',
+                margin: '5px'
               }}
             >
               <h1
@@ -143,7 +143,7 @@ export class PlaylistBuilder extends Component {
               </Button>
             </div>
           </div>
-        )
+        );
       } else {
         return (
           <div
@@ -159,7 +159,7 @@ export class PlaylistBuilder extends Component {
               </Dimmer>
             </Segment>
           </div>
-        )
+        );
       }
     } else {
       if (this.props.recommendations && this.props.recommendations.length > 1) {
@@ -271,7 +271,7 @@ export class PlaylistBuilder extends Component {
               </Button>
             </div>
           </div>
-        )
+        );
       } else if (submitted) {
         return (
           <div style={{width: '100%'}}>
@@ -281,7 +281,7 @@ export class PlaylistBuilder extends Component {
               </Grid.Column>
             </Grid>
           </div>
-        )
+        );
       } else {
         return (
           <div style={{width: '100%'}}>
@@ -291,9 +291,9 @@ export class PlaylistBuilder extends Component {
               </Dimmer>
             </Segment>
           </div>
-        )
+        );
       }
     }
   }
 }
-export default withRouter(connect(mapState, mapDispatch)(PlaylistBuilder))
+export default withRouter(connect(mapState, mapDispatch)(PlaylistBuilder));

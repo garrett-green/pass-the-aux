@@ -3,13 +3,14 @@
     "SPOTIFY"
   ],
   "workbench.colorCustomizations": {
-    "activityBar.background": "#9ebaaf",
+    "activityBar.background": "#ef5fca",
     "activityBar.foreground": "#15202b",
     "activityBar.inactiveForeground": "#15202b99",
-    "activityBarBadge.background": "#846a95",
-    "activityBarBadge.foreground": "#e7e7e7",
-    "statusBar.background": "#80a597",
-    "statusBarItem.hoverBackground": "#648e7e",
-    "statusBar.foreground": "#15202b"
-  }
+    "activityBarBadge.background": "#b2e817",
+    "activityBarBadge.foreground": "#15202b",
+    "statusBar.background": "#ea31bb",
+    "statusBarItem.hoverBackground": "#ef5fca",
+    "statusBar.foreground": "#e7e7e7"
+  },
+  "peacock.color": "#ea31bb"
 }

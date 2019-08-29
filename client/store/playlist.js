@@ -1,32 +1,31 @@
-import axios from 'axios'
-import history from '../history'
+import axios from 'axios';
+import history from '../history';
 
 /**
  * ACTION TYPES
  */
-const CREATE_PLAYLIST = 'CREATE_PLAYLIST'
-const ADD_TO_PLAYLIST = 'ADD_TO_PLAYLIST'
-const SONGS_ADDED_TO_PLAYLIST = 'SONGS_ADDED_TO_PLAYLIST'
+const CREATE_PLAYLIST = 'CREATE_PLAYLIST';
+const ADD_TO_PLAYLIST = 'ADD_TO_PLAYLIST';
+const SONGS_ADDED_TO_PLAYLIST = 'SONGS_ADDED_TO_PLAYLIST';
 
 /**
  * ACTION CREATORS
  */
-const setPlaylist = playlist => ({type: CREATE_PLAYLIST, playlist})
-const songsAddedToPlaylist = () => ({type: ADD_TO_PLAYLIST, success: true})
+const setPlaylist = playlist => ({type: CREATE_PLAYLIST, playlist});
+const songsAddedToPlaylist = () => ({type: ADD_TO_PLAYLIST, success: true});
 
 /**
  * THUNK CREATORS
  */
 export const createNewPlaylist = user => async dispatch => {
-
-  const accessToken = user.accessId
+  const accessToken = user.accessId;
 
   const playListData = {
     name: `${user.playlistName} | By ${user.name}`,
     public: false,
     collaborative: true,
     description: `Created on ${new Date()} with Pass The Aux.`
-  }
+  };
 
   try {
     axios({
@@ -39,19 +38,18 @@ export const createNewPlaylist = user => async dispatch => {
         'Content-Type': 'application/json'
       }
     }).then(response => {
-      const newPlaylist = response.data
-      dispatch(setPlaylist(newPlaylist))
-      return newPlaylist
-    })
+      dispatch(setPlaylist(response.data));
+      return response.data;
+    });
   } catch (err) {
-    console.error(err)
+    console.error(err);
   }
-}
+};
 
 export const buildPlaylist = userData => async dispatch => {
-  const accessToken = userData.user.accessId
-  const playlistId = userData.playlist.id
-  const songs = userData.songs
+  const accessToken = userData.user.accessId;
+  const playlistId = userData.playlist.id;
+  const songs = userData.songs;
 
   try {
     axios({
@@ -64,13 +62,13 @@ export const buildPlaylist = userData => async dispatch => {
         'Content-Type': 'application/json'
       }
     }).then(response => {
-      console.log('finalPlaylist RESPONSE', response)
-      dispatch(songsAddedToPlaylist())
-    })
+      console.log('finalPlaylist RESPONSE', response);
+      dispatch(songsAddedToPlaylist());
+    });
   } catch (err) {
-    console.error(err)
+    console.error(err);
   }
-}
+};
 
 /**
  * REDUCER
@@ -78,12 +76,12 @@ export const buildPlaylist = userData => async dispatch => {
 export default function(state = {}, action) {
   switch (action.type) {
     case CREATE_PLAYLIST:
-      return action.playlist
+      return action.playlist;
 
     case SONGS_ADDED_TO_PLAYLIST:
-      return {...state, success: action.success}
+      return {...state, success: action.success};
 
     default:
-      return state
+      return state;
   }
 }

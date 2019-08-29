@@ -1,43 +1,54 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {withRouter} from 'react-router-dom'
-import {Segment} from 'semantic-ui-react'
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {withRouter} from 'react-router-dom';
+import {Segment} from 'semantic-ui-react';
 
-const mapState = state => {
+const mapState = ({recommendations, playlist, songsForPlaylist, user}) => {
   return {
-    recommendations: state.Recommendations,
-    playlist: state.newPlaylist,
-    songsForPlaylist: state.SongsForPlaylist,
-    user: state.user
-  }
-}
+    recommendations,
+    playlist,
+    songsForPlaylist,
+    user
+  };
+};
 
-export class FinalPlaylist extends Component {
-  render() {
-    const {user, playlist} = this.props
+export const FinalPlaylist = props => {
+  const {user, playlist} = props;
 
-    return (
-      <div>
-        <Segment
-          style={{
-            display: 'flex',
-            justifyContent: 'center'
-          }}
-        >
-          <h2>{playlist.name}</h2>
-          <iframe
-            src={`https://open.spotify.com/embed/user/${
-              user.spotifyId
-            }/playlist/${playlist.id}`}
-            width="90%"
-            height="580"
-            frameborder="0"
-            allowtransparency="true"
-            allow="encrypted-media"
-          />
-        </Segment>
-      </div>
-    )
-  }
-}
-export default withRouter(connect(mapState)(FinalPlaylist))
+  return (
+    <div>
+      <Segment
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          flexDirection: 'column'
+        }}
+      >
+        <div>
+          <h2
+            style={{
+              justifyContent: 'center',
+              paddingTop: '2%',
+              paddingBottom: '2%',
+              textAlign: 'center'
+            }}
+          >
+            {playlist.name}
+          </h2>
+        </div>
+        <iframe
+          src={`https://open.spotify.com/embed/user/${
+            user.spotifyId
+          }/playlist/${playlist.id}`}
+          width="90%"
+          height="580"
+          frameBorder="0"
+          allowtransparency="true"
+          allow="encrypted-media"
+        />
+      </Segment>
+    </div>
+  );
+};
+
+export default withRouter(connect(mapState)(FinalPlaylist));

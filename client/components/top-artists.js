@@ -1,7 +1,7 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {withRouter} from 'react-router-dom'
-import {fetchArtists} from '../store/top-artists'
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {withRouter} from 'react-router-dom';
+import {fetchArtists} from '../store/top-artists';
 import {
   Grid,
   Button,
@@ -10,33 +10,33 @@ import {
   Loader,
   Card,
   Image
-} from 'semantic-ui-react'
+} from 'semantic-ui-react';
 
-const mapState = state => {
+const mapState = ({user, topArtists}) => {
   return {
-    user: state.user,
-    topArtists: state.topArtists
-  }
-}
+    user,
+    topArtists
+  };
+};
 
 const mapDispatch = dispatch => {
   return {
     getTopArtists: user => dispatch(fetchArtists(user))
-  }
-}
+  };
+};
 
 export class TopArtists extends Component {
   constructor() {
-    super()
+    super();
     this.state = {
       artists: []
-    }
+    };
   }
 
   async componentDidMount() {
-    const user = this.props.user
-    const artists = await this.props.getTopArtists(this.props.user)
-    this.setState({artists})
+    const user = this.props.user;
+    const artists = await this.props.getTopArtists(this.props.user);
+    this.setState({artists});
   }
 
   render() {
@@ -106,11 +106,11 @@ export class TopArtists extends Component {
                     </Card.Header>
                   </Card.Content>
                 </Card>
-              )
+              );
             })}
           </Grid>
         </div>
-      )
+      );
     } else {
       return (
         <div>
@@ -120,9 +120,9 @@ export class TopArtists extends Component {
             </Dimmer>
           </Segment>
         </div>
-      )
+      );
     }
   }
 }
 
-export default withRouter(connect(mapState, mapDispatch)(TopArtists))
+export default withRouter(connect(mapState, mapDispatch)(TopArtists));

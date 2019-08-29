@@ -1,25 +1,25 @@
-import React from 'react'
-import {connect} from 'react-redux'
-import {withRouter} from 'react-router-dom'
-import {Card, Image} from 'semantic-ui-react'
-import ReactPlayer from 'react-player'
-import {addSongToPlaylist} from '../store/songsForPlaylist'
+import React from 'react';
+import {connect} from 'react-redux';
+import {withRouter} from 'react-router-dom';
+import {Card, Image} from 'semantic-ui-react';
+import ReactPlayer from 'react-player';
+import {addSongToPlaylist} from '../store/songsForPlaylist';
 
-const mapState = state => {
+const mapState = ({user, genres}) => {
   return {
-    user: state.user,
-    genres: state.Genres
-  }
-}
+    user,
+    genres
+  };
+};
 
 const mapDispatch = dispatch => {
   return {
     addToPlaylist: song => dispatch(addSongToPlaylist(song))
-  }
-}
+  };
+};
 
 export const SongCard = props => {
-  const {song} = props
+  const {song} = props;
 
   return (
     <Card key={song.id} style={{width: '100%'}}>
@@ -32,7 +32,10 @@ export const SongCard = props => {
             <p>Sorry, preview unavailable for this song.</p>
           ) : (
             <ReactPlayer
-              config={{file: {attributes: {controlsList: 'nodownload'}}, forceAudio: false}}
+              config={{
+                file: {attributes: {controlsList: 'nodownload'}},
+                forceAudio: false
+              }}
               url={`${song.preview_url}`}
               playing={true}
               controls={true}
@@ -51,7 +54,7 @@ export const SongCard = props => {
         </Card.Meta>
       </Card.Content>
     </Card>
-  )
-}
+  );
+};
 
-export default withRouter(connect(mapState, mapDispatch)(SongCard))
+export default withRouter(connect(mapState, mapDispatch)(SongCard));
