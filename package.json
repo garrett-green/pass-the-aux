@@ -60,7 +60,7 @@
     "redux-logger": "^2.8.1",
     "redux-thunk": "^2.3.0",
     "semantic-ui-react": "^0.83.0",
-    "sequelize": "^4.38.0",
+    "sequelize": "^5.15.1",
     "spotify-web-api-node": "^4.0.0",
     "ui-react.swipe": "^1.1.0"
   },
