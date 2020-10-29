@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Is this a bop or a flop?",
   "engines": {
-    "node": ">= 7.0.0"
+    "node": "~12.11.1"
   },
   "main": "index.js",
   "scripts": {
